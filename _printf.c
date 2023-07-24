@@ -1,4 +1,5 @@
 #include "main.h"
+#include <unistd.h>
 
 /**
  * _printf -  produces output according to a format,
@@ -9,10 +10,13 @@
 */
 int _printf(const char *format, ...)
 {
-	int i = 0, cmpt = 0;
+	int i = 0, len = 0;
 	char *str;
 	va_list args;
-	
+
+	if (format == NULL)
+		return (-1);
+
 	va_start(args, format);
 
 	while (format[i])
@@ -20,33 +24,35 @@ int _printf(const char *format, ...)
 		if (format[i] == '%')
 		{
 			i++;
-			cmpt++;
 			switch (format[i])
 			{
 			case 'c':
-				_putchar(va_arg(args, int));
+				len += _putchar(va_arg(args, int));
 				break;
 			case 's':
 			{
 				str = va_arg(args, char *);
 				while (*str)
 				{
-					_putchar(*str);
+					if (!str)
+						len = write(1, "(null)", 6);
+					len += _putchar(*str);
 					str++;
-					cmpt++;
 				}
 				break;
 			}
+			case '%':
+				len += _putchar('%');
+				break;
 			default:
-				_putchar(format[i]);
+				len += _putchar(format[i]);
 				break;
 			}
 		}
 		else
-			_putchar(format[i]);
+			len += _putchar(format[i]);
 		i++;
-		cmpt++;
 	}
 	va_end(args);
-	return (cmpt);
+	return (len);
 }
