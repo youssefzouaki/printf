@@ -1,28 +1,4 @@
 #include "main.h"
-/**
- * convert - convert number to decimal base
- * @num: number to convert
- * @base: 
- *
- * Return: pointer to string containing converted number
-*/
-char *convert(unsigned int num, int base)
-{ 
-	static char Representation[]= "0123456789ABCDEF";
-	static char buffer[50]; 
-	char *ptr; 
-
-	ptr = &buffer[49]; 
-	*ptr = '\0'; 
-
-	do 
-	{ 
-		*--ptr = Representation[num%base]; 
-		num /= base; 
-	}while(num != 0); 
-
-	return(ptr); 
-}
 
 /**
  * _printf -  produces output according to a format,
@@ -33,7 +9,7 @@ char *convert(unsigned int num, int base)
 */
 int _printf(const char *format, ...)
 {
-	int n, i = 0, cmpt = 0;
+	int i = 0, cmpt = 0;
 	char *str;
 	va_list args;
 	
