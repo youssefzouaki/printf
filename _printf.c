@@ -1,5 +1,4 @@
 #include "main.h"
-#include <unistd.h>
 /**
  * _printf -  print a formated string
  * @format: pointer to a string containing all the desired characters
@@ -15,6 +14,7 @@ int _printf(const char *format, ...)
 		{"%", print_percent},
 		{"d", print_integer},
 		{"i", print_integer},
+		{"u", unsigned_integer},
 		{NULL, NULL}
 	};
 	va_list args;
